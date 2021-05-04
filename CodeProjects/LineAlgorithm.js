@@ -89,6 +89,7 @@ if (canvas.getContext) {
             imageCanvas.width = maxSide / img.height * img.width;
         }
 
+
         var imageContext = imageCanvas.getContext('2d');
         ctx.globalCompositeOperation = 'source-over';
         ctx.fillStyle = 'rgb(255, 255, 255)';
@@ -100,11 +101,39 @@ if (canvas.getContext) {
 
 
         //Extracting buffers from the image
-        var fullBuffer = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height).data;
-        var rBuffer = new Int16Array(fullBuffer.length / 4);
-        var gBuffer = new Int16Array(fullBuffer.length / 4);
-        var bBuffer = new Int16Array(fullBuffer.length / 4);
+        try {
+            var fullBuffer = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height).data;
+            var rBuffer = new Int16Array(fullBuffer.length / 4);
+            var gBuffer = new Int16Array(fullBuffer.length / 4);
+            var bBuffer = new Int16Array(fullBuffer.length / 4);
+        } catch (err) {
+            if (img.width > img.height) {
+                canvas.width = maxSide;
+                canvas.height = maxSide / img.width * img.height;
+                imageCanvas.width = maxSide;
+                imageCanvas.height = maxSide / img.width * img.height;
+            } else {
+                canvas.height = maxSide;
+                canvas.width = maxSide / img.height * img.width;
+                imageCanvas.height = maxSide;
+                imageCanvas.width = maxSide / img.height * img.width;
+            }
 
+            img = new Image();
+            img.addEventListener('load', function() {
+                if (img.width > img.height) {
+                    canvas.width = maxSide;
+                    canvas.height = maxSide / img.width * img.height;
+                } else {
+                    canvas.height = maxSide;
+                    canvas.width = maxSide / img.height * img.width;
+                }
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height) // execute drawImage statements here
+            }, false);
+
+            img.src = URL.createObjectURL("/Final_Website/images/errorLines.jpg");
+            return;
+        }
 
         for (var index = 0; index < fullBuffer.length; index += 4) {
             rBuffer[index / 4] = fullBuffer[index];
