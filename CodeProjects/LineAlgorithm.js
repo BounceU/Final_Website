@@ -178,7 +178,6 @@ try {
     }, false);
 
     img.src = URL.createObjectURL("/Final_Website/images/errorLines.jpg");
-    return;
 }
 
 
