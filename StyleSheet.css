@@ -116,7 +116,6 @@ input {
 .imageShow {
     padding-left: 20%;
     image-rendering: pixelated;
-    float: left;
 }
 
 #notPixelated {
