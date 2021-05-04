@@ -40,6 +40,7 @@
                         </nav>
                     </li>
                 </ul>
+            </div>
         </aside>
 
         <section>
@@ -52,21 +53,21 @@
 
                 <ul class="blogList">
                     <li class="blogPost">
-                        <img src="images/LookingGood.JPG" class="blogImage">
-                        <p>Hello! I'm Ben and I'm starting a blog! I've got big plans for this. For this first post I'm just going to explain a little bit about how this works.
-                            <ol>
-                                <li>There are no comments, sorry. I'll add those later but I just want to be able to start making posts right now.</li>
-                                <li>You might notice that this post is hardcoded into the webpage. I'm not going to keep editing the html and re-uploading this webpage to github every time I want to make a post, so I'm going to make it so that I just have
-                                    a separate file that houses all of my posts. This website will have an html script that will check that file and show you the posts inside of it.</li>
-                                <li>You can click the image on the right to enlarge/<em>(ensmall?)</em> it.</li>
-                                <li>There will be more posts coming so be on the look out!</li>
-                            </ol>
+                        <img src="images/LookingGood.JPG" class="blogImage" alt="Picture of me">
+                        <p>Hello! I'm Ben and I'm starting a blog! I've got big plans for this. For this first post I'm just going to explain a little bit about how this works. </p>
+                        <ol>
+                            <li>There are no comments, sorry. I'll add those later but I just want to be able to start making posts right now.</li>
+                            <li>You might notice that this post is hardcoded into the webpage. I'm not going to keep editing the html and re-uploading this webpage to github every time I want to make a post, so I'm going to make it so that I just have a separate
+                                file that houses all of my posts. This website will have an html script that will check that file and show you the posts inside of it.</li>
+                            <li>You can click the image on the right to enlarge/<em>(ensmall?)</em> it.</li>
+                            <li>There will be more posts coming so be on the look out!</li>
+                        </ol>
 
-                            <p>If you want a little bit more detail on how the blog file system is going to work I'll probably make a program to write a post and put it in a file with the following format:</p>
-                            <p>"&lt;image url, preferrably one in the images folder&gt;"&lt;Text of the post with markups&gt;</p>
-                            <p>It's a pretty simple system, I just don't want to get into JSON or XML files because they'll just end up being bigger files for no reason since no one is ever going to be actually going into the files. The only place they'll
-                                be shown will be here, and they'll be parsed here.</p>
-                        </p>
+                        <p>If you want a little bit more detail on how the blog file system is going to work I'll probably make a program to write a post and put it in a file with the following format:</p>
+                        <p>"&lt;image url, preferrably one in the images folder&gt;"&lt;Text of the post with markups&gt;</p>
+                        <p>It's a pretty simple system, I just don't want to get into JSON or XML files because they'll just end up being bigger files for no reason since no one is ever going to be actually going into the files. The only place they'll be
+                            shown will be here, and they'll be parsed here.</p>
+
                     </li>
                 </ul>
             </div>
@@ -80,9 +81,10 @@
                 </li>
             </ul>
         </aside>
+
+        <script src="BlogScript.js">
+        </script>
     </main>
 </body>
-<script src="BlogScript.js">
-</script>
 
 </html>

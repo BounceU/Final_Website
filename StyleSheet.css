@@ -265,7 +265,7 @@ section a:active {
 supported by Chrome, Edge, Opera and Firefox */
 }
 
-@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+@media only screen and (max-width: 480px) and (orientation: portrait) {
     aside {
         flex-basis: 100%;
         text-align: center;
@@ -378,7 +378,7 @@ supported by Chrome, Edge, Opera and Firefox */
     }
 }
 
-@media only screen and (max-device-height: 480px) and (orientation: landscape) {
+@media only screen and (max-height: 480px) and (orientation: landscape) {
     section#project {
         display: block;
         height: 100%;
@@ -501,7 +501,7 @@ supported by Chrome, Edge, Opera and Firefox */
     }
 }
 
-@media only screen and (min-device-width: 481px) and (min-device-height:481px) {
+@media only screen and (min-width: 481px) and (min-height:481px) {
     #trigger {
         display: none;
     }
