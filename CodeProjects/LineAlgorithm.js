@@ -48,15 +48,50 @@ imageURLField.addEventListener('change', function(e) {
 }, false);
 
 
-try {
-    if (canvas.getContext) {
-        var img;
+if (canvas.getContext) {
+    var img;
 
 
-        var localFile = document.getElementById('findFile');
-        localFile.addEventListener('change', handleFiles);
+    var localFile = document.getElementById('findFile');
+    localFile.addEventListener('change', handleFiles);
 
-        function handleFiles(e) {
+    function handleFiles(e) {
+        img = new Image();
+        img.addEventListener('load', function() {
+            if (img.width > img.height) {
+                canvas.width = maxSide;
+                canvas.height = maxSide / img.width * img.height;
+            } else {
+                canvas.height = maxSide;
+                canvas.width = maxSide / img.height * img.width;
+            }
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height) // execute drawImage statements here
+        }, false);
+
+        img.src = URL.createObjectURL(e.target.files[0]);
+    }
+
+    button.addEventListener('click', function() {
+
+        //var maxSide = maxSideElement.value;
+
+
+        //Setup Canvases
+        var imageCanvas = document.createElement('canvas');
+        if (img.width > img.height) {
+            canvas.width = maxSide;
+            canvas.height = maxSide / img.width * img.height;
+            imageCanvas.width = maxSide;
+            imageCanvas.height = maxSide / img.width * img.height;
+        } else {
+            canvas.height = maxSide;
+            canvas.width = maxSide / img.height * img.width;
+            imageCanvas.height = maxSide;
+            imageCanvas.width = maxSide / img.height * img.width;
+        }
+
+
+        if (img.width === 0) {
             img = new Image();
             img.addEventListener('load', function() {
                 if (img.width > img.height) {
@@ -69,115 +104,79 @@ try {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height) // execute drawImage statements here
             }, false);
 
-            img.src = URL.createObjectURL(e.target.files[0]);
+            img.src = URL.createObjectURL("/Final_Website/images/errorLines.jpg");
+            return;
         }
 
-        button.addEventListener('click', function() {
-
-            //var maxSide = maxSideElement.value;
-
-
-            //Setup Canvases
-            var imageCanvas = document.createElement('canvas');
-            if (img.width > img.height) {
-                canvas.width = maxSide;
-                canvas.height = maxSide / img.width * img.height;
-                imageCanvas.width = maxSide;
-                imageCanvas.height = maxSide / img.width * img.height;
-            } else {
-                canvas.height = maxSide;
-                canvas.width = maxSide / img.height * img.width;
-                imageCanvas.height = maxSide;
-                imageCanvas.width = maxSide / img.height * img.width;
-            }
+        var imageContext = imageCanvas.getContext('2d');
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = 'rgb(255, 255, 255)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'difference';
+        imageContext.fillStyle = '#FFFFFFFF';
+        imageContext.fillRect(0, 0, canvas.width, canvas.height);
+        imageContext.drawImage(img, 0, 0, imageCanvas.width, imageCanvas.height);
 
 
-            var imageContext = imageCanvas.getContext('2d');
-            ctx.globalCompositeOperation = 'source-over';
-            ctx.fillStyle = 'rgb(255, 255, 255)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.globalCompositeOperation = 'difference';
-            imageContext.fillStyle = '#FFFFFFFF';
-            imageContext.fillRect(0, 0, canvas.width, canvas.height);
-            imageContext.drawImage(img, 0, 0, imageCanvas.width, imageCanvas.height);
+        //Extracting buffers from the image
+        var fullBuffer = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height).data;
+        var rBuffer = new Int16Array(fullBuffer.length / 4);
+        var gBuffer = new Int16Array(fullBuffer.length / 4);
+        var bBuffer = new Int16Array(fullBuffer.length / 4);
 
-
-            //Extracting buffers from the image
-            var fullBuffer = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height).data;
-            var rBuffer = new Int16Array(fullBuffer.length / 4);
-            var gBuffer = new Int16Array(fullBuffer.length / 4);
-            var bBuffer = new Int16Array(fullBuffer.length / 4);
-
-            for (var index = 0; index < fullBuffer.length; index += 4) {
-                rBuffer[index / 4] = fullBuffer[index];
-                gBuffer[index / 4] = fullBuffer[index + 1];
-                bBuffer[index / 4] = fullBuffer[index + 2];
-            }
-
-            //Setting up the worker objects (these run separate processes that find the lines)
-            var workers = [];
-            let width = imageCanvas.width;
-            let height = imageCanvas.height;
-
-
-            var greenWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
-            var blueWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
-            var redWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
-
-            var sendToRedManager = [rBuffer, lineWeight, width, height, iterations, numLines];
-            redWorker.postMessage(sendToRedManager);
-
-            var sendToGreenManager = [gBuffer, lineWeight, width, height, iterations, numLines];
-            greenWorker.postMessage(sendToGreenManager);
-
-            var sendToBlueManager = [bBuffer, lineWeight, width, height, iterations, numLines];
-            blueWorker.postMessage(sendToBlueManager);
-
-
-            //What to do when the workers give us the lines (there's one worker for each color chanel red green blue)
-            redWorker.onmessage = function(e) {
-                let input = e.data;
-                let startPoint = [input[0], input[1]];
-                let endPoint = [input[2], input[3]];
-                let lineWeight = input[4];
-                coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(' + lineWeight + ',0,0)');
-            }
-            greenWorker.onmessage = function(e) {
-                let input = e.data;
-                let startPoint = [input[0], input[1]];
-                let endPoint = [input[2], input[3]];
-                let lineWeight = input[4];
-                coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(0,' + lineWeight + ',0)');
-
-            }
-            blueWorker.onmessage = function(e) {
-                let input = e.data;
-                let startPoint = [input[0], input[1]];
-                let endPoint = [input[2], input[3]];
-                let lineWeight = input[4];
-                coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(0,0,' + lineWeight + ')');
-            }
-        }, false);
-
-    } else {
-        //If the canvas couldn't load I'd put something here but honestly if the canvas doesn't load there's no point in the webpage so there's no need to put something here.
-    }
-} catch (err) {
-
-
-    img = new Image();
-    img.addEventListener('load', function() {
-        if (img.width > img.height) {
-            canvas.width = maxSide;
-            canvas.height = maxSide / img.width * img.height;
-        } else {
-            canvas.height = maxSide;
-            canvas.width = maxSide / img.height * img.width;
+        for (var index = 0; index < fullBuffer.length; index += 4) {
+            rBuffer[index / 4] = fullBuffer[index];
+            gBuffer[index / 4] = fullBuffer[index + 1];
+            bBuffer[index / 4] = fullBuffer[index + 2];
         }
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height) // execute drawImage statements here
+
+        //Setting up the worker objects (these run separate processes that find the lines)
+        var workers = [];
+        let width = imageCanvas.width;
+        let height = imageCanvas.height;
+
+
+        var greenWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
+        var blueWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
+        var redWorker = new Worker(URL.createObjectURL(new Blob(["(" + grunt_function.toString() + ")()"], { type: 'text/javascript' })));
+
+        var sendToRedManager = [rBuffer, lineWeight, width, height, iterations, numLines];
+        redWorker.postMessage(sendToRedManager);
+
+        var sendToGreenManager = [gBuffer, lineWeight, width, height, iterations, numLines];
+        greenWorker.postMessage(sendToGreenManager);
+
+        var sendToBlueManager = [bBuffer, lineWeight, width, height, iterations, numLines];
+        blueWorker.postMessage(sendToBlueManager);
+
+
+        //What to do when the workers give us the lines (there's one worker for each color chanel red green blue)
+        redWorker.onmessage = function(e) {
+            let input = e.data;
+            let startPoint = [input[0], input[1]];
+            let endPoint = [input[2], input[3]];
+            let lineWeight = input[4];
+            coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(' + lineWeight + ',0,0)');
+        }
+        greenWorker.onmessage = function(e) {
+            let input = e.data;
+            let startPoint = [input[0], input[1]];
+            let endPoint = [input[2], input[3]];
+            let lineWeight = input[4];
+            coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(0,' + lineWeight + ',0)');
+
+        }
+        blueWorker.onmessage = function(e) {
+            let input = e.data;
+            let startPoint = [input[0], input[1]];
+            let endPoint = [input[2], input[3]];
+            let lineWeight = input[4];
+            coloredLine(startPoint[0], startPoint[1], endPoint[0], endPoint[1], 'rgb(0,0,' + lineWeight + ')');
+        }
     }, false);
 
-    img.src = URL.createObjectURL("/Final_Website/images/errorLines.jpg");
+} else {
+    //If the canvas couldn't load I'd put something here but honestly if the canvas doesn't load there's no point in the webpage so there's no need to put something here.
 }
 
 
