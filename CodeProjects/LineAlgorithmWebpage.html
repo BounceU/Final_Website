@@ -5,42 +5,50 @@
 <head>
     <title>Line Drawing Project</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/Final_Website/StyleSheet.css">
+    <link rel="stylesheet" href="/CTIS230assignments/StyleSheet.css">
+    <meta name="viewport" content="width-device-width,initial-scale=1">
 </head>
 
 <body>
     <main>
         <aside id=usegrad1>
-            <nav>
+            <input type="checkbox" id="trigger">
+            <div class="responsive-menu">
                 <ul>
                     <li>
-                        <a href="/Final_Website/LiebkemannAssignment3_2.html">Home Page</a>
-                    </li>
-                    <li id=currentPage>
-                        <a href="/Final_Website/CodeProjects/LineAlgorithmWebpage.html">Line Project</a>
-                    </li>
-                    <li>
-                        <a href="/Final_Website/LiebkemannAssignment3_1.html">Description of Line Project</a>
-                    </li>
-                    <li>
-                        <a href="/Final_Website/CellularAutomataWebpage.html">Cellular Automata Project</a>
-                    </li>
-                    <li>
-                        <a href="/Final_Website/PredatorPreyWebpage.html">Predator-Prey Project</a>
-                    </li>
-                    <li>
-                        <a href="/Final_Website/LiebkemannAssignment2.html">Temporary Webpage</a>
+                        <label for="trigger" id="noDesktop">Menu</label>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/CTIS230assignments/LiebkemannAssignment3_2.html">Home Page</a>
+                                </li>
+                                <li id=currentPage>
+                                    <a href="/CTIS230assignments/CodeProjects/LineAlgorithmWebpage.html">Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/CTIS230assignments/LiebkemannAssignment3_1.html">Description of Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/CTIS230assignments/CellularAutomataWebpage.html">Cellular Automata Project</a>
+                                </li>
+                                <li>
+                                    <a href="/CTIS230assignments/PredatorPreyWebpage.html">Predator-Prey Project</a>
+                                </li>
+                                <li>
+                                    <a href="/CTIS230assignments/LiebkemannAssignment2.html">Temporary Webpage</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </li>
                 </ul>
-            </nav>
         </aside>
 
 
-        <section id="project">
+        <section>
             <div class="projectView">
                 <canvas id="lineCanvas" width=800 height=600></canvas>
             </div>
-            <p>If you want a description of what this algorithm does, click <a href="/Final_Website/LiebkemannAssignment3_1.html">here</a></p>
+            <p>If you want a description of what this algorithm does, click <a href="/CTIS230assignments/LiebkemannAssignment3_1.html">here</a></p>
         </section>
         <aside id=usegrad2>
             <ul id=settingsPanel>
@@ -57,6 +65,7 @@
                 <li><label for="sideLen">Maximum side length:</label>
                     <input type="number" id="sideLen" name="sideLen" value="500"></li>
                 <li><button id="butt">Make it lines!</button></li>
+
             </ul>
         </aside>
     </main>
