@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Description of Predator-Prey Simulation</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/Final_Website/StyleSheet.css">
+    <meta name="viewport" content="width-device-width,initial-scale=1">
+</head>
+
+
+<body>
+    <main>
+        <aside id=usegrad1>
+            <input type="checkbox" id="trigger">
+            <div class="responsive-menu">
+                <ul>
+                    <li>
+                        <label for="trigger" id="noDesktop">Menu</label>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/Final_Website/HomeBlog.html">Home Page</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/CodeProjects/LineAlgorithmWebpage.html">Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/LineAlgorithmDescription.html">Description of Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/CellularAutomataWebpage.html">Cellular Automata Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/CGOLDescription.html">Description of Cellular Automata Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/PredatorPreyWebpage.html">Predator-Prey Project</a>
+                                </li>
+                                <li id=currentPage>
+                                    <a href="/Final_Website/PredatorPreyDescription.html">Description of Predator-Prey Project</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <section>
+            <h1>
+                What is this algorithm?
+            </h1>
+            <p>
+                This is an algorithm that creates a <a href="https://globalchange.umich.edu/globalchange1/current/lectures/predation/predation.html">Predator-Prey simulation</a>. This is a simulation known as <a href="https://en.wikipedia.org/wiki/Cellular_automaton">cellular automaton</a>.
+                Basically, a 2D grid of cells go through several iterations over time according to a certain set of rules that determine each cell's next state.
+            </p>
+            <p>
+                <em>
+                    Okay, then what are the rules?
+                </em>
+            </p>
+
+
+            <div class="imageShow">
+                <img src="/Final_Website/images/AutomataNeighbors.png" alt="Image showing the neighbors of a cell" width=90>
+            </div>
+            <p>
+                Here's an image showing a cell surrounded by its visible neighbors. There are a couple of ways a cell can change state and they are as follows:
+            </p>
+            <ul>
+                <li>A <span style="color:red">predator cell</span> will always move if it's able. It moves randomly and has a certain amount of health that decays by 1 with each iteration. If the health of the cell reaches 0 then it will die. The only way
+                    for predators to gain health is to eat a <span style="color:lightgreen">prey cell</span>. Upon eating it, the <span style="color:red">predator cell</span> will gain all of that prey's health. If the predator's health reaches a pre-defined
+                    threshold, it will birth an offspring in the cell from which it moved. The offspring and the parent cell will then start with their health equal to that of the threshold value.
+                </li>
+                <li>A <span style="color:lightgreen">prey cell</span> will always move if it's able. It moves randomly and has a certain amount of health that increases by 1 with each iteration. If the health of the cell ever reaches a pre-defined threshold,
+                    the cell will produce and offspring in the cell from which it moved. The offspring and the parent cell will then start with a random amount of health up to half of the threshold value. The only way for a <span style="color:lightgreen">prey cell</span>                    to die is for it to be eaten by a
+                    <span style="color:red">predator cell</span>. </li>
+            </ul>
+
+            <p>The interesting thing about this simulation is the steady-state it reaches of a balance between predator and prey. When plotting the populations against each other, a circle (or at least a decently round looking shape) is formed as the species'
+                populations are dependent on each other. If the predators all die out, the prey will grow until they take up the whole area. If all of the prey die, the predators will die out until none are left. Neither of these situations are particularly
+                interesting to see so I gave the user the option of preventing this outright. If there is only one prey, the predators will not eat it and if there is only one predator, it will not die out. This provides the benefit of making every starting
+                position result in an interesting steady-state. I recommend you play around with the values at your disposal on the <a href="/Final_Website/PredatorPreyWebpage.html">project page</a>.</p>
+            <p>In terms of actually making all of this happen, I just go through the grid cell-by-cell and decide what to do with it according to the rules above. Each cell has a property to tell if it's already been moved this iteration so that we don't
+                repeat anything.</p>
+        </section>
+
+        <aside id=usegrad2>
+        </aside>
+    </main>
+</body>
+
+</html>

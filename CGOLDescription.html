@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+        Description of Line Algorithm
+    </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/Final_Website/StyleSheet.css">
+    <meta name="viewport" content="width-device-width,initial-scale=1">
+</head>
+
+<body>
+    <main>
+        <aside id=usegrad1>
+            <input type="checkbox" id="trigger">
+            <div class="responsive-menu">
+                <ul>
+                    <li>
+                        <label for="trigger" id="noDesktop">Menu</label>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/Final_Website/HomeBlog.html">Home Page</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/CodeProjects/LineAlgorithmWebpage.html">Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/LineAlgorithmDescription.html">Description of Line Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/CellularAutomataWebpage.html">Cellular Automata Project</a>
+                                </li>
+                                <li id=currentPage>
+                                    <a href="/Final_Website/CGOLDescription.html">Description of Cellular Automata Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/PredatorPreyWebpage.html">Predator-Prey Project</a>
+                                </li>
+                                <li>
+                                    <a href="/Final_Website/PredatorPreyDescription.html">Description of Predator-Prey Project</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <section>
+            <h1>
+                What is this algorithm?
+            </h1>
+            <p>
+                This is an algorithm called <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>. This is a simulation known as <a href="https://en.wikipedia.org/wiki/Cellular_automaton">cellular automaton</a>. Basically,
+                a 2D grid of cells go through several iterations over time according to a certain set of rules that determine each cell's next state.
+            </p>
+            <p>
+                <em>
+                    Okay, then what are the rules?
+                </em>
+            </p>
+
+
+            <div class="imageShow">
+                <img src="/Final_Website/images/AutomataNeighbors.png" alt="Image showing the neighbors of a cell" width=90>
+            </div>
+            <p>
+                Here's an image showing a cell surrounded by its visible neighbors. There are a couple of ways a cell can change state and they are as follows:
+            </p>
+            <ol>
+                <li>An inactive cell will turn active if it has exactly 3 active neighbors.</li>
+                <li>An active cell will stay active if it has 2 or 3 active neighbors.</li>
+                <li>An active cell will turn inactive if it has less than 2 or more than 3 active neighbors.</li>
+            </ol>
+
+
+            <p>
+                <em>
+                    Okay cool, but how do you actually apply those rules?
+                </em>
+            </p>
+
+
+            <p>
+                Well, the structure is as follows: every iteration we go through the grid (an array of integers) left-to-right, top-to-bottom. For each cell, we look at the 8 cells around it and count the amount of them that are active. We then decide whether the cell
+                will live or die in the next iteration. We can't just switch these from 0 to 1 and vice versa, though. We need to calculate the next state for the whole grid before we can change any of the elements. The most simple way to accomplish this
+                would be to use another grid but that uses more memory and would be a little bit slower. Instead, we use only 1 grid but define multiple values instead of being 0-inactive, 1-active. We keep those values but define 2-inactive now but active
+                next iteration, 3-active now but inactive next iteration. Then when we're drawing the grid to the screen, as we go through each element to draw it we turn all of the 2's to 1's and all of the 3's to 0's. This fixes the grid in time for
+                the next calculations.
+            </p>
+
+            <p>
+                That's it, this algorithm is fairly simple.
+            </p>
+
+        </section>
+        <aside id=usegrad2>
+        </aside>
+    </main>
+</body>
+
+</html>
