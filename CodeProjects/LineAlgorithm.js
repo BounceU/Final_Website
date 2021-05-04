@@ -70,7 +70,7 @@ if (canvas.getContext) {
         try {
             img.src = URL.createObjectURL(e.target.files[0]);
         } catch (err) {
-            img.src = '';
+            img.src = "/Final_Website/images/errorLines.jpg";
         }
     }
 
@@ -107,7 +107,7 @@ if (canvas.getContext) {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height) // execute drawImage statements here
             }, false);
 
-            img.src = URL.createObjectURL("/Final_Website/images/errorLines.jpg");
+            img.src = "/Final_Website/images/errorLines.jpg";
             return;
         }
 
