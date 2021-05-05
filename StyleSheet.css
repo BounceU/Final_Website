@@ -365,10 +365,10 @@ supported by Chrome, Edge, Opera and Firefox */
     #trigger {
         display: none;
     }
-    #trigger:checked nav ul {
+    #trigger:checked+nav ul {
         display: block;
     }
-    #trigger:checked .responsive-menu {
+    #trigger:checked+.responsive-menu {
         border-bottom-style: none;
     }
 }
@@ -488,10 +488,10 @@ supported by Chrome, Edge, Opera and Firefox */
     #trigger {
         display: none;
     }
-    #trigger:checked nav ul {
+    #trigger:checked+nav ul {
         display: block;
     }
-    #trigger:checked .responsive-menu {
+    #trigger:checked+.responsive-menu {
         border-bottom-style: none;
     }
 }
