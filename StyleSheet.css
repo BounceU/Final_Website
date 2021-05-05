@@ -359,13 +359,13 @@ supported by Chrome, Edge, Opera and Firefox */
     li {
         height: fit-content;
     }
-    .responsive-menu nav {
+    .responsive-menu ul li nav ul {
         display: none;
     }
     #trigger {
         display: none;
     }
-    #trigger:checked nav {
+    #trigger:checked nav ul {
         display: block;
     }
     #trigger:checked .responsive-menu {
@@ -482,13 +482,13 @@ supported by Chrome, Edge, Opera and Firefox */
         border-bottom-style: solid;
         font-size: 120%;
     }
-    .responsive-menu nav {
+    .responsive-menu ul li nav ul {
         display: none;
     }
     #trigger {
         display: none;
     }
-    #trigger:checked navl {
+    #trigger:checked nav ul {
         display: block;
     }
     #trigger:checked .responsive-menu {
