@@ -365,7 +365,8 @@ supported by Chrome, Edge, Opera and Firefox */
     #trigger {
         display: none;
     }
-    #trigger:checked+nav ul {
+    #trigger:checked+.responsive-menu ul li nav ul {
+        padding-top: 5px;
         display: block;
     }
     #trigger:checked+.responsive-menu {
@@ -488,7 +489,8 @@ supported by Chrome, Edge, Opera and Firefox */
     #trigger {
         display: none;
     }
-    #trigger:checked+nav ul {
+    #trigger:checked+.responsive-menu ul li nav ul {
+        padding-top: 5px;
         display: block;
     }
     #trigger:checked+.responsive-menu {
