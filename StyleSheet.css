@@ -359,16 +359,16 @@ supported by Chrome, Edge, Opera and Firefox */
     li {
         height: fit-content;
     }
-    .responsive-menu ul li nav ul {
+    .responsive-menu nav {
         display: none;
     }
     #trigger {
         display: none;
     }
-    #trigger:checked+.responsive-menu ul li:hover nav ul {
+    #trigger:checked nav {
         display: block;
     }
-    #trigger:checkeD+.responsive-menu ul li:hover .responsive-menu {
+    #trigger:checked .responsive-menu {
         border-bottom-style: none;
     }
 }
@@ -482,13 +482,13 @@ supported by Chrome, Edge, Opera and Firefox */
         border-bottom-style: solid;
         font-size: 120%;
     }
-    .responsive-menu ul li nav ul {
+    .responsive-menu nav {
         display: none;
     }
     #trigger {
         display: none;
     }
-    #trigger:checked nav ul {
+    #trigger:checked navl {
         display: block;
     }
     #trigger:checked .responsive-menu {
